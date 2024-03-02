@@ -1,0 +1,2 @@
+pyaml>=23.11.0
+customtkinter>=5.2.0
