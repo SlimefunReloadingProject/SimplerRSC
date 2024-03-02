@@ -49,7 +49,7 @@ class CreateAddons(ctk.CTk):
 
     # 创建
     def addon_create(self):
-        if self.addon_id.get()!="" and self.addon_name.get()!="" and self.addon_author.get()!="":
+        if self.addon_id.get()!="" and self.addon_name.get()!="" and self.addon_author.get()!="" and self.addon_dir!="":
             try:
                 # 创建附属文件夹
                 os.chdir(self.addon_dir.get())
@@ -92,7 +92,7 @@ class Mian(ctk.CTk):
         # 创建
         ctk.CTkButton(self,text="创建新附属",command=self.addon_create,width=200,anchor="center").grid(row=0,column=0,padx=30,pady=17)
         # 分割
-        ctk.CTkLabel(self,text="                         或                         ").grid(row=1,column=0)
+        ctk.CTkLabel(self,text="或").grid(row=1,column=0)
         # 打开
         ctk.CTkButton(self,text="打开现有附属",width=200,anchor="center").grid(row=2,column=0,padx=30,pady=15)
 
