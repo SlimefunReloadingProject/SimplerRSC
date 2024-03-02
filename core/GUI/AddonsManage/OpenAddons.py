@@ -2,6 +2,7 @@ import os
 import yaml
 import tkinter.messagebox
 import customtkinter as ctk
+from tktooltip import ToolTip
 
 import core.main
 
@@ -35,17 +36,14 @@ class CreateAddons(ctk.CTk):
         self.addon_version=ctk.CTkEntry(self,width=160)
         self.addon_version.grid(row=3,column=1,padx=10,sticky="w")
         # 位置
-        ctk.CTkLabel(self,text="生成附属位置[可选]").grid(row=4,column=0,padx=10,pady=(10,0),sticky="w")
+        ctk.CTkLabel(self,text="生成附属位置[必填]").grid(row=4,column=0,padx=10,pady=(10,0),sticky="w")
         self.addon_dir=ctk.CTkEntry(self)
         self.addon_dir.grid(row=5,column=0,padx=8,columnspan=2,sticky="ew")
-
-        if self.addon_dir.get()=="":
-            self.addon_dir = self.addon_id
-
         #GitHub位置
-        ctk.CTkLabel(self,text="GitHub存储库位置[可选](格式: 作者/存储库名称)").grid(row=6,column=0,padx=10,pady=(10,0),sticky="w")
+        githubLabel = ctk.CTkLabel(self,text="GitHub存储库位置[可选]").grid(row=6,column=0,padx=10,pady=(10,0),sticky="w")
         self.addon_repo=ctk.CTkEntry(self)
         self.addon_repo.grid(row=7,column=0,padx=8,columnspan=2,sticky="ew")
+        ToolTip(githubLabel, "格式: 作者/存储库名称")
         # 创建按钮
         ctk.CTkButton(self,text="创建附属",command=self.addon_create,height=33).grid(row=8,column=0,padx=10,pady=(10,15),columnspan=2,sticky="ew")
 
