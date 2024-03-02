@@ -35,15 +35,11 @@ class CreateAddons(ctk.CTk):
         self.addon_version=ctk.CTkEntry(self,width=160)
         self.addon_version.grid(row=3,column=1,padx=10,sticky="w")
         # 位置
-        ctk.CTkLabel(self,text="生成附属位置[可选]").grid(row=4,column=0,padx=10,pady=(10,0),sticky="w")
+        ctk.CTkLabel(self,text="生成附属位置[必填/位置必须存在]").grid(row=4,column=0,padx=10,pady=(10,0),columnspan=2,sticky="w")
         self.addon_dir=ctk.CTkEntry(self)
         self.addon_dir.grid(row=5,column=0,padx=8,columnspan=2,sticky="ew")
-
-        if self.addon_dir.get()=="":
-            self.addon_dir = self.addon_id
-
         #GitHub位置
-        ctk.CTkLabel(self,text="GitHub存储库位置[可选](格式: 作者/存储库名称)").grid(row=6,column=0,padx=10,pady=(10,0),sticky="w")
+        ctk.CTkLabel(self,text="GitHub存储库位置[可选](格式: 作者/存储库名称)").grid(row=6,column=0,padx=10,pady=(10,0),columnspan=2,sticky="w")
         self.addon_repo=ctk.CTkEntry(self)
         self.addon_repo.grid(row=7,column=0,padx=8,columnspan=2,sticky="ew")
         # 创建按钮
@@ -51,7 +47,7 @@ class CreateAddons(ctk.CTk):
 
     # 创建
     def addon_create(self):
-        if self.addon_id.get()!="" and self.addon_name.get()!="" and self.addon_author.get()!="":
+        if self.addon_id.get()!="" and self.addon_name.get()!="" and self.addon_author.get()!="" and self.addon_dir!="":
             try:
                 # 创建附属文件夹
                 os.chdir(self.addon_dir.get())
@@ -94,7 +90,7 @@ class Mian(ctk.CTk):
         # 创建
         ctk.CTkButton(self,text="创建新附属",command=self.addon_create,width=200,anchor="center").grid(row=0,column=0,padx=30,pady=17)
         # 分割
-        ctk.CTkLabel(self,text="                         或                         ").grid(row=1,column=0)
+        ctk.CTkLabel(self,text="或").grid(row=1,column=0)
         # 打开
         ctk.CTkButton(self,text="打开现有附属",width=200,anchor="center").grid(row=2,column=0,padx=30,pady=15)
 
