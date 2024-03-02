@@ -1,6 +1,16 @@
 import customtkinter as ctk
 import core.main
 
+# 顶栏
+class TopHurdle(ctk.CTkFrame):
+    def __init__(self,master):
+        super().__init__(master,width=1000,height=50)
+        # 标题
+        self.top_title=ctk.CTkLabel(self,text="SimplerRSC",font=("微软雅黑",17),text_color="#000000",fg_color="#d7d7d7")
+        self.top_title.place(x=20,y=10)
+        # 关闭按钮
+        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",17,"bold"),width=50,height=50,command=master.close_win,fg_color="#d7d7d7",hover_color="#d0d0d0").place(x=950,y=0)
+
 class Main(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -12,16 +22,14 @@ class Main(ctk.CTk):
         self.wm_attributes('-transparentcolor','#0000ff')
         self.attributes('-topmost','false')
         # 顶栏
-        self.top_hurdle=ctk.CTkLabel(self,width=1000,height=50,fg_color="#d7d7d7",text="")
-        self.top_hurdle.place(x=0,y=0)
-        # 关闭按钮
-        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",17,"bold"),width=50,height=50,command=self.close_win,fg_color="#d7d7d7",hover_color="#d0d0d0").place(x=950,y=0)
+        self.Top_hurdle=TopHurdle(self)
+        self.Top_hurdle.place(x=0,y=0)
         # 识别鼠标拖拽事件
         self.winx=0
         self.winy=0
-        self.top_hurdle.bind("<ButtonPress-1>",on_drag_start)
-        self.top_hurdle.bind("<B1-Motion>",on_drag)
-        self.top_hurdle.bind("<ButtonRelease-1>",on_drag_stop)
+        self.Top_hurdle.bind("<ButtonPress-1>",on_drag_start)
+        self.Top_hurdle.bind("<B1-Motion>",on_drag)
+        self.Top_hurdle.bind("<ButtonRelease-1>",on_drag_stop)
 
     # 关闭按钮
     def close_win(self):
