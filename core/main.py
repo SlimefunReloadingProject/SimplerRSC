@@ -1,5 +1,6 @@
-from core.GUI.AddonsManage.OpenAddons import Mian
+from core.GUI.main import Main
+
+main=Main()
 
 def run():
-    main=Mian()
     main.mainloop()
