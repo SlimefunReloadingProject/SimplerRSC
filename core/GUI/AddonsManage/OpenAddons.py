@@ -3,15 +3,17 @@ import yaml
 import tkinter.messagebox
 import customtkinter as ctk
 
+import core.main
+
 # 阻塞主线程弹窗
 class info_window:
     def info(title:str,text:str):
         tkinter.messagebox.showinfo(title=title,message=text)
 
 # 创建附属
-class CreateAddons(ctk.CTkToplevel):
-    def __init__(self,master):
-        super().__init__(master)
+class CreateAddons(ctk.CTk):
+    def __init__(self):
+        super().__init__()
         self.resizable(0,0)
         self.title("SimplerRSC - 创建新的附属")
         # 附属id
@@ -80,12 +82,9 @@ class Mian(ctk.CTk):
         # 打开
         ctk.CTkButton(self,text="打开现有附属",width=200).grid(row=2,column=0,padx=30,pady=15)
 
-    # 恢复窗口
-    def win_deiconify(self,*arg):
-        self.deiconify()
-
     # 创建
     def addon_create(self):
-        self.withdraw()
-        self.CreateAddons=CreateAddons(self)
-        self.CreateAddons.bind("<Destroy>",self.win_deiconify)
+        self.destroy()
+        self.CreateAddons=CreateAddons()
+        self.CreateAddons.mainloop()
+        self.CreateAddons.bind("<Destroy>",core.main.run())
