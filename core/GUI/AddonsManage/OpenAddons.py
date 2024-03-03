@@ -2,7 +2,7 @@ import os
 import yaml
 import tkinter.messagebox
 import customtkinter as ctk
-import CTkToolTip
+import CTkToolTip as ctt
 
 import core.main
 
@@ -43,7 +43,7 @@ class CreateAddons(ctk.CTk):
         githubLabel = ctk.CTkLabel(self,text="GitHub存储库位置[可选]").grid(row=6,column=0,padx=10,pady=(10,0),sticky="w")
         self.addon_repo=ctk.CTkEntry(self)
         self.addon_repo.grid(row=7,column=0,padx=8,columnspan=2,sticky="ew")
-        CTkToolTip(githubLabel, "格式: 作者/存储库名称")
+        ctt.CTkToolTip(githubLabel, "格式: 作者/存储库名称")
         # 创建按钮
         ctk.CTkButton(self,text="创建附属",command=self.addon_create,height=33).grid(row=8,column=0,padx=10,pady=(10,15),columnspan=2,sticky="ew")
 

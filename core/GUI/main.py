@@ -1,21 +1,24 @@
 import customtkinter as ctk
 import core.main
+from core.GUI.AddonsManage.OpenAddons import Mian
 
 # 顶栏
 class TopHurdle(ctk.CTkFrame):
     def __init__(self,master):
-        super().__init__(master,width=1000,height=50)
+        super().__init__(master,width=1000,height=50,fg_color="#1BAFEE",corner_radius=0)
         # 标题
-        self.top_title=ctk.CTkLabel(self,text="SimplerRSC",font=("微软雅黑",17),text_color="#000000",fg_color="#d7d7d7")
+        self.top_title=ctk.CTkLabel(self,text="SimplerRSC",font=("微软雅黑",17),text_color="#FFFFFF")
         self.top_title.place(x=20,y=10)
         # 关闭按钮
-        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",17,"bold"),width=50,height=50,command=master.close_win,fg_color="#d7d7d7",hover_color="#d0d0d0").place(x=950,y=0)
+        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=master.close_win,hover_color="#dd0000").place(x=951,y=1)
+        #最小化按钮
+        #ctk.CTkButton(self,text="—",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=,hover_color="#dd0000").place(x=902,y=1)
 
 class Main(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.attributes('-topmost','true')
-        self.title("SimplerRSC - Main")
+        self.title("SimplerRSC - 主页面")
         self.geometry("1000x600")
         self.resizable(0, 0)
         self.overrideredirect(True)
@@ -24,6 +27,9 @@ class Main(ctk.CTk):
         # 顶栏
         self.Top_hurdle=TopHurdle(self)
         self.Top_hurdle.place(x=0,y=0)
+        # 创建附属按钮
+        self.Add_Addons=ctk.CTkButton(self,text="+",text_color="#ffffff",font=("微软雅黑",20,"bold"),width=50,height=50,corner_radius=15,fg_color="#2394D5",command=lambda:Mian())
+        self.Add_Addons.place(x=930,y=530)
         # 识别鼠标拖拽事件
         self.winx=0
         self.winy=0
