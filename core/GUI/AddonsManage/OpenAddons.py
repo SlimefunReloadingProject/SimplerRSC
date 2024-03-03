@@ -2,7 +2,7 @@ import os
 import yaml
 import tkinter.messagebox
 import customtkinter as ctk
-import CTkToolTip as ctt
+from CTkToolTip import *
 
 import core.main
 
@@ -12,13 +12,11 @@ class info_window:
         tkinter.messagebox.showinfo(title=title,message=text)
 
 # 创建附属
-class CreateAddons(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class CreateAddons(ctk.CTkToplevel):
+    def __init__(self,master):
+        super().__init__(master)
         self.resizable(0,0)
         self.title("SimplerRSC - 创建新的附属")
-
-        self.eval('tk::PlaceWindow . center')
         # 附属id
         ctk.CTkLabel(self,text="附属id[必填]").grid(row=0,column=0,padx=10,pady=(10,0),sticky="w")
         self.addon_id=ctk.CTkEntry(self,width=160)
@@ -40,10 +38,10 @@ class CreateAddons(ctk.CTk):
         self.addon_dir=ctk.CTkEntry(self)
         self.addon_dir.grid(row=5,column=0,padx=8,columnspan=2,sticky="ew")
         #GitHub位置
-        githubLabel = ctk.CTkLabel(self,text="GitHub存储库位置[可选]").grid(row=6,column=0,padx=10,pady=(10,0),sticky="w")
+        self.githubLabel=ctk.CTkLabel(self,text="GitHub存储库位置[可选]").grid(row=6,column=0,padx=10,pady=(10,0),sticky="w")
         self.addon_repo=ctk.CTkEntry(self)
         self.addon_repo.grid(row=7,column=0,padx=8,columnspan=2,sticky="ew")
-        ctt.CTkToolTip(githubLabel, "格式: 作者/存储库名称")
+        CTkToolTip(self.addon_repo, "格式: 作者/存储库名称")
         # 创建按钮
         ctk.CTkButton(self,text="创建附属",command=self.addon_create,height=33).grid(row=8,column=0,padx=10,pady=(10,15),columnspan=2,sticky="ew")
 
@@ -79,26 +77,16 @@ class CreateAddons(ctk.CTk):
         else:
             info_window.info("info","必要参数未填写")
 
-class Mian(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class Mian(ctk.CTkToplevel):
+    def __init__(self,master):
+        super().__init__(master)
         self.title("SimplerRSC")
         self.resizable(0,0)
-
         self.geometry("250x150")
-
-        self.eval('tk::PlaceWindow . center')
-
         # 创建
-        ctk.CTkButton(self,text="创建新附属",command=self.addon_create,width=200,anchor="center").grid(row=0,column=0,padx=30,pady=17)
+        ctk.CTkButton(self,text="创建新附属",command=lambda:CreateAddons(master),width=200,anchor="center").grid(row=0,column=0,padx=30,pady=17)
         # 分割
         ctk.CTkLabel(self,text="或").grid(row=1,column=0)
         # 打开
         ctk.CTkButton(self,text="打开现有附属",width=200,anchor="center").grid(row=2,column=0,padx=30,pady=15)
-
-    # 创建
-    def addon_create(self):
-        self.destroy()
-        self.CreateAddons=CreateAddons()
-        self.CreateAddons.mainloop()
-        self.CreateAddons.bind("<Destroy>",core.main.run())
+        

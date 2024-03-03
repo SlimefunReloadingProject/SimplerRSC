@@ -28,7 +28,7 @@ class Main(ctk.CTk):
         self.Top_hurdle=TopHurdle(self)
         self.Top_hurdle.place(x=0,y=0)
         # 创建附属按钮
-        self.Add_Addons=ctk.CTkButton(self,text="+",text_color="#ffffff",font=("微软雅黑",20,"bold"),width=50,height=50,corner_radius=15,fg_color="#2394D5",command=lambda:Mian())
+        self.Add_Addons=ctk.CTkButton(self,text="+",text_color="#ffffff",font=("微软雅黑",20,"bold"),width=50,height=50,corner_radius=15,fg_color="#2394D5",command=lambda:Mian(self))
         self.Add_Addons.place(x=930,y=530)
         # 识别鼠标拖拽事件
         self.winx=0
