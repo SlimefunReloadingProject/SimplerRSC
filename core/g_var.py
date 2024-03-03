@@ -1,0 +1,2 @@
+class Addons:
+    data:dict={}
