@@ -5,14 +5,36 @@ from CTkToolTip import *
 
 # 弹窗
 class info_window(ctk.CTkToplevel):
-    def __init__(self,master,title:str,text:str):
+    def __init__(self,top_win,title:str,text:str):
         super().__init__()
-        master.wm_attributes("-topmost",False)
+        self.top_win=top_win
+        self.top_win.wm_attributes("-topmost",False)
         self.wm_attributes("-topmost",True)
         self.resizable(0,0)
         self.title(title)
-        ctk.CTkLabel(self,text=text).grid(row=0,column=0,padx=50,pady=50)
-        ctk.CTkButton(self,text="确定").grid(row=1,column=0)
+        ctk.CTkLabel(self,text=text).grid(row=0,column=0,padx=50,pady=(30,5))
+        ctk.CTkButton(self,text="确定",command=self.close_win).grid(row=1,column=0,pady=15)
+
+    # 关窗口
+    def close_win(self):
+        self.top_win.wm_attributes("-topmost",True)
+        self.destroy()
+
+# 打开附属
+class OpenAddons(ctk.CTkToplevel):
+    def __init__(self,master,top_win):
+        super().__init__(master)
+        self.resizable(0,0)
+        self.wm_attributes("-topmost", True)
+        self.title("SimplerRSC - 打开现有附属")
+        # 关闭上个窗口
+        top_win.destroy()
+
+        ctk.CTkLabel(self,text="附属所在文件夹").grid(row=0,column=0,padx=10,pady=(10,0),sticky="w")
+        self.addon_id=ctk.CTkEntry(self,width=250)
+        self.addon_id.grid(row=1,column=0,padx=10,sticky="w")
+        # 按钮
+        ctk.CTkButton(self,text="打开").grid(row=2,column=0,padx=10,pady=10)
 
 # 创建附属
 class CreateAddons(ctk.CTkToplevel):
@@ -94,5 +116,5 @@ class Mian(ctk.CTkToplevel):
         # 分割
         ctk.CTkLabel(self,text="或").grid(row=1,column=0)
         # 打开
-        ctk.CTkButton(self,text="打开现有附属",width=200,anchor="center").grid(row=2,column=0,padx=30,pady=15)
+        ctk.CTkButton(self,text="打开现有附属",command=lambda:OpenAddons(master,self),width=200,anchor="center").grid(row=2,column=0,padx=30,pady=15)
         
