@@ -11,7 +11,7 @@ class TopHurdle(ctk.CTkFrame):
         self.top_title=ctk.CTkLabel(self,text="SimplerRSC",font=("微软雅黑",17),text_color="#FFFFFF")
         self.top_title.place(x=20,y=10)
         # 关闭按钮
-        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=master.close_win,fg_color="#1BAFEE",hover_color="#dd0000").place(x=951,y=1)
+        ctk.CTkButton(self,text="x",text_color="#ffffff",font=("微软雅黑",22,"bold"),width=48,height=48,command=master.close_win,fg_color="#1BAFEE",hover_color="#dd0000").place(x=951,y=1)
         #最小化按钮
         #ctk.CTkButton(self,text="—",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=,hover_color="#dd0000").place(x=902,y=1)
 

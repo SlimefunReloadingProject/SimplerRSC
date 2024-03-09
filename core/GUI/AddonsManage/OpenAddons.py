@@ -82,30 +82,33 @@ class CreateAddons(ctk.CTkToplevel):
     # 创建
     def addon_create(self):
         if self.addon_id.get()!="" and self.addon_name.get()!="" and self.addon_author.get()!="" and self.addon_dir!="":
+            try:
                 # 创建附属文件夹
-            os.chdir(self.addon_dir.get())
-            os.makedirs(self.addon_id.get())
+                os.chdir(self.addon_dir.get())
+                os.makedirs(self.addon_id.get())
                 # 必要数据处理
-            data={
+                data={
                     "id":str(self.addon_id.get()),
                     "name":str(self.addon_name.get()),
                     "authors":[str(self.addon_author.get())]
                 }
                 # 非必要数据处理
-            arglist=[
+                arglist=[
                     {"arg":"version","GUI":self.addon_version},
                     {"arg":"repo","GUI":self.addon_repo}
                 ]
-            for arg in arglist:
-                if arg["GUI"].get()!="":
-                    data[arg["arg"]]=arg["GUI"].get()
+                for arg in arglist:
+                    if arg["GUI"].get()!="":
+                        data[arg["arg"]]=arg["GUI"].get()
                 # 写入info.yml
-            file=open(self.addon_dir.get()+"/"+self.addon_id.get()+"/info.yml","w")
-            file.write(yaml.safe_dump(data))
-            file.close()
-            open_addons(self.addon_dir.get()+"/"+self.addon_id.get())
-            info_window(self,"info","创建成功")
-            self.destroy()
+                file=open(self.addon_dir.get()+"/"+self.addon_id.get()+"/info.yml","w")
+                file.write(yaml.safe_dump(data))
+                file.close()
+                open_addons(self.addon_dir)
+                info_window(self,"info","创建成功")
+                self.destroy()
+            except:
+                info_window(self,"bushi","你TM往输入框里填了什么奇奇怪怪的东西")
         else:
             info_window(self,"info","必要参数未填写")
 

@@ -19,6 +19,8 @@ def open_addons(dir:str):
     for arg in IPS_arg:
         if not(arg in info_arg):
             return False,"此不是rsc附属"
+    # 附属路径写入内存
+    Addons.data["dir"]=dir
     # info 写入内存
     Addons.data["info"]=info
     # 读取附属
