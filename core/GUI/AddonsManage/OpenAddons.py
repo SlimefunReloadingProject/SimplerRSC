@@ -2,6 +2,7 @@ import os
 import yaml
 import customtkinter as ctk
 from CTkToolTip import *
+from core.handle.OpenAddons import open_addons
 
 # 弹窗
 class info_window(ctk.CTkToplevel):
@@ -17,7 +18,6 @@ class info_window(ctk.CTkToplevel):
 
     # 关窗口
     def close_win(self):
-        self.top_win.wm_attributes("-topmost",True)
         self.destroy()
 
 # 打开附属
@@ -29,12 +29,18 @@ class OpenAddons(ctk.CTkToplevel):
         self.title("SimplerRSC - 打开现有附属")
         # 关闭上个窗口
         top_win.destroy()
-
         ctk.CTkLabel(self,text="附属所在文件夹").grid(row=0,column=0,padx=10,pady=(10,0),sticky="w")
         self.addon_id=ctk.CTkEntry(self,width=250)
         self.addon_id.grid(row=1,column=0,padx=10,sticky="w")
         # 按钮
-        ctk.CTkButton(self,text="打开").grid(row=2,column=0,padx=10,pady=10)
+        ctk.CTkButton(self,text="打开",command=self.openaddons).grid(row=2,column=0,padx=10,pady=10)
+    
+    def openaddons(self):
+        oad=open_addons(self.addon_id.get())
+        if oad[0]:
+            self.destroy()
+        else:
+            print(oad[1])
 
 # 创建附属
 class CreateAddons(ctk.CTkToplevel):
@@ -76,32 +82,30 @@ class CreateAddons(ctk.CTkToplevel):
     # 创建
     def addon_create(self):
         if self.addon_id.get()!="" and self.addon_name.get()!="" and self.addon_author.get()!="" and self.addon_dir!="":
-            try:
                 # 创建附属文件夹
-                os.chdir(self.addon_dir.get())
-                os.makedirs(self.addon_id.get())
+            os.chdir(self.addon_dir.get())
+            os.makedirs(self.addon_id.get())
                 # 必要数据处理
-                data={
+            data={
                     "id":str(self.addon_id.get()),
                     "name":str(self.addon_name.get()),
                     "authors":[str(self.addon_author.get())]
                 }
                 # 非必要数据处理
-                arglist=[
+            arglist=[
                     {"arg":"version","GUI":self.addon_version},
                     {"arg":"repo","GUI":self.addon_repo}
                 ]
-                for arg in arglist:
-                    if arg["GUI"].get()!="":
-                        data[arg["arg"]]=arg["GUI"].get()
+            for arg in arglist:
+                if arg["GUI"].get()!="":
+                    data[arg["arg"]]=arg["GUI"].get()
                 # 写入info.yml
-                file=open(self.addon_dir.get()+"/"+self.addon_id.get()+"/info.yml","w")
-                file.write(yaml.safe_dump(data))
-                file.close()
-                info_window(self,"info","创建成功")
-                self.destroy()
-            except:
-                info_window(self,"bushi","你TM往输入框里填了什么奇奇怪怪的东西")
+            file=open(self.addon_dir.get()+"/"+self.addon_id.get()+"/info.yml","w")
+            file.write(yaml.safe_dump(data))
+            file.close()
+            open_addons(self.addon_dir.get()+"/"+self.addon_id.get())
+            info_window(self,"info","创建成功")
+            self.destroy()
         else:
             info_window(self,"info","必要参数未填写")
 

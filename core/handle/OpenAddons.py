@@ -2,10 +2,11 @@ import os
 import yaml
 
 from core.g_var import Addons
+import core.main
 
 def open_addons(dir:str):
     # 检查路径是否存在
-    if (not os.path.isfile(dir)) and os.path.exists(dir):
+    if os.path.isfile(dir) and os.path.exists(dir):
         return False,"路径不存在"
     # 切换os所在目录
     os.chdir(dir)
@@ -24,7 +25,10 @@ def open_addons(dir:str):
     file_list=["groups.yml","recipe_types.yml","items.yml"]
     for file in file_list:
         # 判断是否存在
-        if not os.path.isfile(file):
+        if os.path.isfile(file):
             # 写入内存
             arg:dict=yaml.safe_load(open(file,"r").read())
             Addons.data[file.split(".")[0]]=arg
+    print(Addons.data)
+    core.main.main.win_coverage()
+    return True,None

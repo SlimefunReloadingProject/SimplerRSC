@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import core.main
 from core.GUI.AddonsManage.OpenAddons import Mian
+from core.GUI.WorkSpace.Main import Main as WorkSpace_Main
 
 # 顶栏
 class TopHurdle(ctk.CTkFrame):
@@ -10,7 +11,7 @@ class TopHurdle(ctk.CTkFrame):
         self.top_title=ctk.CTkLabel(self,text="SimplerRSC",font=("微软雅黑",17),text_color="#FFFFFF")
         self.top_title.place(x=20,y=10)
         # 关闭按钮
-        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=master.close_win,hover_color="#dd0000").place(x=951,y=1)
+        ctk.CTkButton(self,text="X",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=master.close_win,fg_color="#1BAFEE",hover_color="#dd0000").place(x=951,y=1)
         #最小化按钮
         #ctk.CTkButton(self,text="—",text_color="#ffffff",font=("微软雅黑",19,"bold"),width=48,height=48,command=,hover_color="#dd0000").place(x=902,y=1)
 
@@ -36,6 +37,10 @@ class Main(ctk.CTk):
         self.Top_hurdle.bind("<ButtonPress-1>",on_drag_start)
         self.Top_hurdle.bind("<B1-Motion>",on_drag)
         self.Top_hurdle.bind("<ButtonRelease-1>",on_drag_stop)
+
+    # win_coverage
+    def win_coverage(self):
+        WorkSpace_Main(self).place(x=0,y=50)
 
     # 关闭按钮
     def close_win(self):
