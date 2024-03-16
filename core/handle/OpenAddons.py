@@ -13,7 +13,7 @@ def open_addons(dir:str):
     # 检查是否为RSC附属
     if not os.path.isfile("info.yml"):
         return False,"此不是rsc附属"
-    info:dict=yaml.safe_load(open("info.yml","r").read())
+    info:dict=yaml.safe_load(open("info.yml","r",encoding='utf-8').read())
     info_arg=info.keys()
     IPS_arg=["id","name","authors"]
     for arg in IPS_arg:
@@ -29,7 +29,7 @@ def open_addons(dir:str):
         # 判断是否存在
         if os.path.isfile(file):
             # 写入内存
-            arg:dict=yaml.safe_load(open(file,"r").read())
+            arg:dict=yaml.safe_load(open(file,"r",encoding='utf-8').read())
             Addons.data[file.split(".")[0]]=arg
     print(Addons.data)
     core.main.main.win_coverage()
