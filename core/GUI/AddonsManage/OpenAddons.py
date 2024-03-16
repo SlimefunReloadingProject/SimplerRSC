@@ -104,7 +104,7 @@ class CreateAddons(ctk.CTkToplevel):
                 file=open(self.addon_dir.get()+"/"+self.addon_id.get()+"/info.yml","w")
                 file.write(yaml.safe_dump(data))
                 file.close()
-                open_addons(self.addon_dir)
+                open_addons(self.addon_dir.get())
                 info_window(self,"info","创建成功")
                 self.destroy()
             except:

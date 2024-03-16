@@ -40,7 +40,8 @@ class Main(ctk.CTk):
 
     # win_coverage
     def win_coverage(self):
-        WorkSpace_Main(self).place(x=0,y=50)
+        self.WorkSpace_Main=WorkSpace_Main(self)
+        self.WorkSpace_Main.place(x=0,y=50)
 
     # 关闭按钮
     def close_win(self):
